@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "bluebird": "^3.7.2",
+    "cypress": "^15.16.0"
+  }
+}
