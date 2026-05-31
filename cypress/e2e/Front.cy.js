@@ -1,7 +1,7 @@
 import user from '../fixtures/user.json'
 import url from '../fixtures/url.json'
-import pageHome from '../support/pageHome'
-import componentNav from '../support/componentNav'
+import pageHome from '../support/page_objects/pageHome'
+import componentNav from '../support/page_objects/componentNav'
 
 
 describe('Casos de prueba de FRONT', () => {
