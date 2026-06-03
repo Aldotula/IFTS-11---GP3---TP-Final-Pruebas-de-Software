@@ -36,22 +36,13 @@ it('Filtrar libros por categoria estan logueado | Rosa Sanchez', () => {
 
 it.only('Eliminar un libro de la wishlist estando logueado | Aldo Tula', () => {
 
-    // Precondición: agregar 1 libro a wishlist por API
     cy.toggleWishlistAPI(user.userId, 2, user.token)
-
-    // Login
     cy.visit(url.login)
     cy.login(user.name, user.password)
     cy.url().should('include', url.home)
-
-    // Ir a wishlist
     cy.goToWishlist()
     cy.reload()
-
-    // Validar que hay libros
     pageWishlist.isWishlistNotEmpty()
-
-    // Eliminar libro
     pageWishlist.removeFirstBook()
 })
 
