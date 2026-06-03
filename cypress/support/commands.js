@@ -1,9 +1,9 @@
-const pageLogin = require('./page_objects/pageLogin')
+const pageLogin = require('../support/page_objects/pageLogin')
 
 Cypress.Commands.add('login', (name, password) => {
-    pageLogin.typeUserName(name)
-    pageLogin.typeUserPassword(password)
-    pageLogin.clickLoginButton()
+    pageLogin.typeUserName(name);
+    pageLogin.typeUserPassword(password);
+    pageLogin.clickLoginButton();
 })
 
 Cypress.Commands.add('deleteCartAPI', (userId) => {
@@ -24,22 +24,22 @@ Cypress.Commands.add('postCheckOutAPI', (userId, token, codeResponse) => {
     cy.request({
         method: 'POST',
         url: `https://app.bookdbqa.online/api/CheckOut/${userId}`,
-        failOnStatusCode: false, // importante para que cypress no falle automaticamente ante un error 400 o 500
+        failOnStatusCode: false,
         headers: {
             accept: 'application/json',
             'content-type': 'application/json',
-            authorization: token
+            authorization: token,
         },
         body: {
             orderDetails: [
                 {
                     book: {
                         bookId: 3,
-                        title: 'Harry Potter and the Prisoner of Azkaban',
-                        author: 'JKR',
-                        category: 'Romance',
+                        title: "Harry Potter and the Prisoner of Azkaban",
+                        author: "JKR",
+                        category: "Romance",
                         price: 213,
-                        coverFileName: 'c63ade52-3f90-41fa-980a-1136b6ad2128HP3.jpg'
+                        coverFileName: "test.jpg"
                     },
                     quantity: 1
                 }
@@ -50,3 +50,35 @@ Cypress.Commands.add('postCheckOutAPI', (userId, token, codeResponse) => {
         expect(response.status).to.eq(codeResponse)
     })
 })
+
+Cypress.Commands.add('getCategoriesAPI', (codeResponse) => {
+    cy.request({
+        method: 'GET',
+        url: 'https://app.bookdbqa.online/api/Book/GetCategoriesList',
+        failOnStatusCode: false
+    }).then((response) => {
+        expect(response.status).to.eq(codeResponse)
+    })
+})
+
+
+Cypress.Commands.add('postCategoriesAPI', (codeResponse) => {
+    cy.request({
+        method: 'POST',
+        url: 'https://app.bookdbqa.online/api/Book/GetCategoriesList',
+        failOnStatusCode: false
+    }).then((response) => {
+        expect(response.status).to.eq(codeResponse)
+    })
+})
+
+Cypress.Commands.add('getWishlistAPI', (userId, codeResponse) => {
+    cy.request({
+        method: 'GET',
+        url: `https://app.bookdbqa.online/api/Wishlist/${userId}`,
+        failOnStatusCode: false
+    }).then((response) => {
+        expect(response.status).to.eq(codeResponse)
+    })
+})
+
