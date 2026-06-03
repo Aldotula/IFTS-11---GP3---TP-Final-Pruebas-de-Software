@@ -1,0 +1,24 @@
+class PageCheckout {
+
+  validateCheckoutPage() {
+    cy.contains('Check Out').should('be.visible');
+    cy.get('input').should('have.length.greaterThan', 4);
+  }
+
+  fillForm(data) {
+    cy.get('input').eq(1).clear().type(data.name);
+    cy.get('input').eq(2).clear().type(data.address1);
+    cy.get('input').eq(3).clear().type(data.address2);
+    cy.get('input').eq(4).clear().type(data.pincode);
+    cy.get('input').eq(5).clear().type(data.state);
+  }
+
+  clickPlaceOrder() {
+    cy.contains('button', 'Place Order')
+      .should('be.visible')
+      .click();
+  }
+
+}
+
+export default new PageCheckout();

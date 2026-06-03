@@ -1,22 +1,22 @@
-class pageHome {
+class PageHome {
 
-    isBookVisible() {
-        cy.get('app-book-card')
-          .contains('Harry Potter and the Chamber of Secrets')
-          .should('be.visible')
-    }
+isBookVisible() {
+  cy.get('app-book-card')
+    .should('have.length.greaterThan', 0);
 
-    // Método para validar libros luego de un filtro
-    isAnyBookVisible() {
-        cy.get('app-book-card')
-          .should('have.length.greaterThan', 0)
-    }
+  cy.contains('Harry Potter and the Chamber of Secrets')
+    .should('be.visible');
+}
 
-    clickAddToCartButton() {
-        cy.get('button').contains('Add to Cart').click()
-    }
+  isAnyBookVisible() {
+    cy.get('app-book-card')
+      .should('have.length.greaterThan', 0);
+  }
+
+  clickAddToCartButton() {
+    cy.contains('button', 'Add to Cart').click();
+  }
 
 }
 
-module.exports = new pageHome();
-``
+export default new PageHome();

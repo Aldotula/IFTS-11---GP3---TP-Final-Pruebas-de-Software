@@ -2,11 +2,11 @@ import user from '../fixtures/user.json'
 
 describe('Casos de prueba de APIs', () => {
 
-    it.skip('API | Comprar carrito exitosamente', () => {
+    it('API | Comprar carrito exitosamente', () => {
         cy.postCheckOutAPI(user.userId, user.token, 200)
     })
 
-    it.skip('API | Error al comprar carrito sin token', () => {
+    it('API | Error al comprar carrito sin token', () => {
         cy.postCheckOutAPI(user.userId, '', 401)
     })
 
