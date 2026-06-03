@@ -2,10 +2,12 @@ import user from '../fixtures/user.json'
 import url from '../fixtures/url.json'
 const pageHome = require('../support/page_objects/pageHome')
 const componentNav = require('../support/page_objects/componentNav')
+const pageWishlist = require('../support/page_objects/pageWishlist')
+
 
 describe('Casos de prueba de FRONT', () => {
 
-  it.only('Comprar carrito exitosamente y visualizar orden de compra', () => {
+  it('Comprar carrito exitosamente y visualizar orden de compra', () => {
 
     cy.deleteCartAPI(user.userId);
     cy.visit(url.login)
@@ -21,17 +23,43 @@ describe('Casos de prueba de FRONT', () => {
 
   })
 
-  it('Titulo caso de prueba 2 | Nombre Alumno', () => {
-  })
+it('Filtrar libros por categoria estan logueado | Rosa Sanchez', () => {
 
-  it('Titulo caso de prueba 3 | Nombre Alumno', () => {
-  })
+    cy.visit(url.login)
+    cy.login(user.name, user.password)
+    cy.url().should('include', url.home)
+    pageHome.isBookVisible()
+    cy.filterByCategory('Romance')
+    pageHome.isAnyBookVisible()
+})
 
-  it('Titulo caso de prueba 4 | Nombre Alumno', () => {
-  })
 
-  it('Titulo caso de prueba 5 | Nombre Alumno', () => {
-  })
+it.only('Eliminar un libro de la wishlist estando logueado | Aldo Tula', () => {
+
+    // Precondición: agregar 1 libro a wishlist por API
+    cy.toggleWishlistAPI(user.userId, 2, user.token)
+
+    // Login
+    cy.visit(url.login)
+    cy.login(user.name, user.password)
+    cy.url().should('include', url.home)
+
+    // Ir a wishlist
+    cy.goToWishlist()
+    cy.reload()
+
+    // Validar que hay libros
+    pageWishlist.isWishlistNotEmpty()
+
+    // Eliminar libro
+    pageWishlist.removeFirstBook()
+})
+
+it('Titulo caso de prueba 4 | Nombre Alumno', () => {
+})
+
+it('Titulo caso de prueba 5 | Nombre Alumno', () => {
+})
 
   //it.only ejecutar solo ese caso de prueba
   //it.skip no ejecuta ese caso de prueba
