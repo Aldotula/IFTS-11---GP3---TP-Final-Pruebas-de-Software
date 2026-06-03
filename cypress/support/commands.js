@@ -82,3 +82,21 @@ Cypress.Commands.add('getWishlistAPI', (userId, codeResponse) => {
     })
 })
 
+Cypress.Commands.add('filterByCategory', (categoryName) => {
+    cy.contains(categoryName).click()
+})
+
+Cypress.Commands.add('goToWishlist', () => {
+    cy.visit('https://app.bookdbqa.online/wishlist')
+})
+
+Cypress.Commands.add('toggleWishlistAPI', (userId, bookId, token) => {
+    cy.request({
+        method: 'POST',
+        url: `https://app.bookdbqa.online/api/Wishlist/ToggleWishlist/${userId}/${bookId}`,
+        failOnStatusCode: false,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+})
