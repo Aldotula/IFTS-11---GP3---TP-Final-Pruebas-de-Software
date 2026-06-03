@@ -15,6 +15,13 @@ describe('Casos de prueba de APIs', () => {
 
     it.skip('Titulo caso de prueba API 3 | Nombre Alumno', () => {
     })
+   
+    it.skip('Titulo caso de prueba API 4 | Vitalia Miranda', () => {
+    })
 
+    it.skip('Titulo caso de prueba API 5 | Vitalia Miranda', () => {
+    })
 
+    it.skip('Titulo caso de prueba API 6 | Vitalia Miranda', () => {
+    })
 })
