@@ -10,49 +10,43 @@ import pageOrders from '../support/page_objects/pageOrders';
 
 describe('Casos de prueba de FRONT', () => {
 
-  it('Comprar carrito exitosamente y visualizar orden de compra', () => {
-    cy.deleteCartAPI(user.userId);
-    cy.login(user.name, user.password);
-    cy.url().should('include', url.home);
-    pageHome.isBookVisible();
-    componentNav.validationNumberCartBadge('0');
-    pageHome.clickAddToCartButton();
-    cy.contains('One Item added to cart').should('be.visible');
-    componentNav.validationNumberCartBadge('1');
-    componentNav.goToCart();
-    pageCart.validateCartPage();
-    pageCart.validateProductInCart();
-    pageCart.validateTotal('236.00');
-    pageCart.clickCheckout();
-    pageCheckout.validateCheckoutPage();
-    pageCheckout.fillForm({
-      name: 'Aldo',
-      address1: 'Calle 123',
-      address2: 'Depto 4',
-      pincode: '123456',
-      state: 'Buenos Aires'
-    });
-    pageCheckout.clickPlaceOrder();
-    pageOrders.validateOrdersPage();
-    pageOrders.validateOrderCreated('236.00');
-    pageOrders.openFirstOrder();
-  });
+it('Comprar carrito exitosamente y visualizar orden de compra', () => {
+  cy.deleteCartAPI(user.userId);
+  cy.login(user.username, user.password);
+  cy.url().should('include', url.home);
+  pageHome.isBookVisible();
+  componentNav.validationNumberCartBadge(user.cart.initialCount);
+  pageHome.clickAddToCartButton();
+  pageHome.validateItemAddedMessage();
+  componentNav.validationNumberCartBadge(user.cart.finalCount);
+  componentNav.goToCart();
+  pageCart.validateCartPage();
+  pageCart.validateProductInCart();
+  pageCart.validateTotal(user.cart.total);
+  pageCart.clickCheckout();
+  pageCheckout.validateCheckoutPage();
+  pageCheckout.fillForm(user.checkout);
+  pageCheckout.clickPlaceOrder();
+  pageOrders.validateOrdersPage();
+  pageOrders.validateOrderCreated(user.cart.total);
+  pageOrders.openFirstOrder();
+});
 
   it('Filtrar libros por categoria estan logueado | Rosa Sanchez', () => {
-    cy.login(user.name, user.password)
-    cy.url().should('include', url.home)
-    pageHome.isBookVisible()
-    cy.filterByCategory('Romance')
-    pageHome.isAnyBookVisible()
+    cy.login(user.username, user.password);
+    cy.url().should('include', url.home);
+    pageHome.isBookVisible();
+    pageHome.filterByCategory('Romance');
+    pageHome.isAnyBookVisible();
   });
 
-  it.only('Eliminar un libro de la wishlist estando logueado | Aldo Tula', () => {
-    cy.login(user.name, user.password);
-    cy.toggleWishlistAPI(user.userId, 2, user.token);
+  it('Eliminar un libro de la wishlist estando logueado | Aldo Tula', () => {
+    cy.login(user.username, user.password);
+    cy.ensureWishlistHasItem(user.userId, user.username, user.password);
     cy.goToWishlist();
     cy.reload();
     pageWishlist.isWishlistNotEmpty();
-    pageWishlist.removeFirstBook()
+    pageWishlist.removeFirstBook();
   });
 
   it('Titulo caso de prueba 4 | Nombre Alumno', () => {

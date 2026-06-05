@@ -1,5 +1,17 @@
 {
-  "userId": "1069",
-  "name": "Aldotulatest",
+  "userId": 1069,
+  "username": "Aldotulatest",
   "password": "Aldotulatest01",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWxkb3R1bGF0ZXN0Iiwic3ViIjoiVXNlciIsImp0aSI6ImRmMmY0OWJlLWYwODgtNGYyNS1hZjM2LWMzODhiMGMxNjU5YSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJ1c2VySWQiOiIxMDY5IiwiZXhwIjoxNzgwNTg5MDE2LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDM2NC8iLCJhdWQiOiJodHRwczovL2xvY2FsaG9zdDo0NDM2NC8ifQ.MO_H8K9o5xaGGfucFTCCSXUBrBqFvclb4wO-6H8dMrY"}
+  "checkout": {
+    "name": "Aldo",
+    "address1": "Calle 123",
+    "address2": "Depto 4",
+    "pincode": "123456",
+    "state": "Buenos Aires"
+  },
+  "cart": {
+    "initialCount": "0",
+    "finalCount": "1",
+    "total": "236.00"
+  }
+}

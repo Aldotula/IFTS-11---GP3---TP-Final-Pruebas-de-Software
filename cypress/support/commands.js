@@ -108,3 +108,29 @@ Cypress.Commands.add('filterByCategory', (categoryName) => {
     .should('be.visible')
     .click();
 });
+
+Cypress.Commands.add('loginAPI', (username, password) => {
+  return cy.request({
+    method: 'POST',
+    url: 'https://app.bookdbqa.online/api/Login',
+    body: {
+      userName: username,
+      password: password
+    }
+  }).then((response) => {
+    return response.body.token;
+  });
+});
+
+Cypress.Commands.add('ensureWishlistHasItem', (userId, username, password) => {
+  cy.loginAPI(username, password).then((token) => {
+    cy.request({
+      method: 'GET',
+      url: `https://app.bookdbqa.online/api/Wishlist/${userId}`
+    }).then((response) => {
+      if (response.body.length === 0) {
+        cy.toggleWishlistAPI(userId, 2, token);
+      }
+    });
+  });
+});
