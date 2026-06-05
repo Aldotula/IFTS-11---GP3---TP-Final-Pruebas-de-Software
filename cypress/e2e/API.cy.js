@@ -28,6 +28,14 @@ describe('Casos de prueba de APIs', () => {
     it('Error al obtener wishlist de un usuario inexistente | Aldo Tula', () => {
         cy.getWishlistAPI(99999, 200)
     })
+
+    it('API | Inicio de sesión exitoso | Leonel Quisbert', () => {
+        cy.loginAPI(user.name, user.password, 200)
+    })
+
+    it('API | Error al iniciar sesión con credenciales inválidas | Leonel Quisbert', () => {
+        cy.loginAPI(user.name, 'PasswordIncorrecta', 401)
+    })
     // Nota: La API devuelve 200 OK con lista vacía para usuarios inexistentes, en lugar de 404 Not Found.
     
 })
