@@ -10,27 +10,27 @@ import pageOrders from '../support/page_objects/pageOrders';
 
 describe('Casos de prueba de FRONT', () => {
 
-it('Comprar carrito exitosamente y visualizar orden de compra', () => {
-  cy.deleteCartAPI(user.userId);
-  cy.login(user.username, user.password);
-  cy.url().should('include', url.home);
-  pageHome.isBookVisible();
-  componentNav.validationNumberCartBadge(user.cart.initialCount);
-  pageHome.clickAddToCartButton();
-  pageHome.validateItemAddedMessage();
-  componentNav.validationNumberCartBadge(user.cart.finalCount);
-  componentNav.goToCart();
-  pageCart.validateCartPage();
-  pageCart.validateProductInCart();
-  pageCart.validateTotal(user.cart.total);
-  pageCart.clickCheckout();
-  pageCheckout.validateCheckoutPage();
-  pageCheckout.fillForm(user.checkout);
-  pageCheckout.clickPlaceOrder();
-  pageOrders.validateOrdersPage();
-  pageOrders.validateOrderCreated(user.cart.total);
-  pageOrders.openFirstOrder();
-});
+  it('Comprar carrito exitosamente y visualizar orden de compra', () => {
+    cy.deleteCartAPI(user.userId);
+    cy.login(user.username, user.password);
+    cy.url().should('include', url.home);
+    pageHome.isBookVisible();
+    componentNav.validationNumberCartBadge(user.cart.initialCount);
+    pageHome.clickAddToCartButton();
+    pageHome.validateItemAddedMessage();
+    componentNav.validationNumberCartBadge(user.cart.finalCount);
+    componentNav.goToCart();
+    pageCart.validateCartPage();
+    pageCart.validateProductInCart();
+    pageCart.validateTotal(user.cart.total);
+    pageCart.clickCheckout();
+    pageCheckout.validateCheckoutPage();
+    pageCheckout.fillForm(user.checkout);
+    pageCheckout.clickPlaceOrder();
+    pageOrders.validateOrdersPage();
+    pageOrders.validateOrderCreated(user.cart.total);
+    pageOrders.openFirstOrder();
+  });
 
   it('Filtrar libros por categoria estan logueado | Rosa Sanchez', () => {
     cy.login(user.username, user.password);
