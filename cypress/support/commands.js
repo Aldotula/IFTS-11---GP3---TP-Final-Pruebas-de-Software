@@ -134,3 +134,17 @@ Cypress.Commands.add('ensureWishlistHasItem', (userId, username, password) => {
     });
   });
 });
+
+Cypress.Commands.add('loginAPI', (username, password, codeResponse) => {
+  return cy.request({
+    method: 'POST',
+    url: 'https://app.bookdbqa.online/api/Login',
+    failOnStatusCode: false,
+    body: {
+      userName: username,
+      password: password
+    }
+  }).then((response) => {
+    expect(response.status).to.eq(codeResponse);
+  });
+});
