@@ -1,5 +1,13 @@
 class PageOrders {
 
+  openUserMenu() {
+    cy.contains('aldotulatest').click();
+}
+
+  openMyOrders() {
+    cy.contains('My Orders').click();
+  }
+
   validateOrdersPage() {
     cy.url().should('include', 'myorders');
     cy.contains('My Orders').should('be.visible');
@@ -17,4 +25,3 @@ class PageOrders {
 }
 
 export default new PageOrders();
-``
