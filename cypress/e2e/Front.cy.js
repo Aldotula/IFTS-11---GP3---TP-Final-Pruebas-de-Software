@@ -49,8 +49,12 @@ describe('Casos de prueba de FRONT', () => {
     pageWishlist.removeFirstBook();
   });
 
-  it('Titulo caso de prueba 4 | Nombre Alumno', () => {
-  });
+  it('Visualizar pantalla My Orders estando logueado | Leonel Quisbert', () => {
+    cy.login(user.name, user.password)
+    pageOrders.openUserMenu()
+    pageOrders.openMyOrders()
+    pageOrders.validateOrdersPage()
+  })
 
   it('Titulo caso de prueba 5 | Nombre Alumno', () => {
   });
