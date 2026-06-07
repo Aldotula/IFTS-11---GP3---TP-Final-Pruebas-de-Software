@@ -109,16 +109,23 @@ Cypress.Commands.add('filterByCategory', (categoryName) => {
     .click();
 });
 
-Cypress.Commands.add('loginAPI', (username, password) => {
+Cypress.Commands.add('loginAPI', (username, password, codeResponse = 200) => {
   return cy.request({
     method: 'POST',
     url: 'https://app.bookdbqa.online/api/Login',
+    failOnStatusCode: false,
     body: {
       userName: username,
       password: password
     }
   }).then((response) => {
-    return response.body.token;
+    expect(response.status).to.eq(codeResponse);
+
+    if (response.status === 200 && response.body) {
+      return response.body.token;
+    }
+
+    return null;
   });
 });
 
@@ -135,16 +142,3 @@ Cypress.Commands.add('ensureWishlistHasItem', (userId, username, password) => {
   });
 });
 
-Cypress.Commands.add('loginAPI', (username, password, codeResponse) => {
-  return cy.request({
-    method: 'POST',
-    url: 'https://app.bookdbqa.online/api/Login',
-    failOnStatusCode: false,
-    body: {
-      userName: username,
-      password: password
-    }
-  }).then((response) => {
-    expect(response.status).to.eq(codeResponse);
-  });
-});

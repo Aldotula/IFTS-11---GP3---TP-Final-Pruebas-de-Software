@@ -50,7 +50,7 @@ describe('Casos de prueba de FRONT', () => {
   });
 
   it('Visualizar pantalla My Orders estando logueado | Leonel Quisbert', () => {
-    cy.login(user.name, user.password)
+    cy.login(user.username, user.password)
     pageOrders.openUserMenu()
     pageOrders.openMyOrders()
     pageOrders.validateOrdersPage()
