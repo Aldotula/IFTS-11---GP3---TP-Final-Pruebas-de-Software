@@ -38,4 +38,12 @@ describe('Casos de prueba de APIs', () => {
     })
     // Nota: La API devuelve 200 OK con lista vacía para usuarios inexistentes, en lugar de 404 Not Found.
 
+     it('API: Registro de usuario exitoso | Vitalia Miranda', () => {
+        cy.registerUserAPI(200)
+    })
+
+    it('intentar registrar datos incompletos | Vitalia Miranda', () => {
+        cy.registrarDatosIncompletosAPI(400)
+    })
+
 })

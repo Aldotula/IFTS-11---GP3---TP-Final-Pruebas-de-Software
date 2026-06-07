@@ -7,6 +7,7 @@ import pageWishlist from '../support/page_objects/pageWishlist';
 import pageCart from '../support/page_objects/pageCart';
 import pageCheckout from '../support/page_objects/pageCheckout';
 import pageOrders from '../support/page_objects/pageOrders';
+import pageRegister from '../support/page_objects/pageRegister';
 
 describe('Casos de prueba de FRONT', () => {
 
@@ -56,7 +57,22 @@ describe('Casos de prueba de FRONT', () => {
     pageOrders.validateOrdersPage()
   })
 
-  it('Titulo caso de prueba 5 | Nombre Alumno', () => {
+  beforeEach(() => {
+    pageRegister.visitar();
+  });
+
+  it('Front-end: Validar que el nombre de usuario no esté repetido | Vitalia Miranda', () => {
+    pageRegister.completarFormulario({
+      confirmPassword: "Vitalia1234",
+      firstName: "vitalia",
+      gender: "Female",
+      lastName: "miranda",
+      password: "Vitalia1234",
+      userName: "vitaliamiranda"
+    });
+
+    pageRegister.enviarFormulario();
+    cy.contains('User Name is not available').should('be.visible');
   });
 
 });

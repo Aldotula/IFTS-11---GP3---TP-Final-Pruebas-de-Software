@@ -148,3 +148,40 @@ Cypress.Commands.add('loginAPI', (username, password, codeResponse) => {
     expect(response.status).to.eq(codeResponse);
   });
 });
+
+Cypress.Commands.add('registerUserAPI', (codeResponse) => {
+  const body = {
+      confirmPassword: "Vitalia1234",
+      firstName: "vitalia",
+      gender: "Female",
+      lastName: "miranda",
+      password: "Vitalia1234",
+      userName: "vitaliamiranda"
+  };
+
+  return cy.request({
+    method: 'POST',
+    url: 'https://app.bookdbqa.online/api/user/',
+    failOnStatusCode: false, 
+    body: body
+  }).then((response) => {
+    expect(response.status).to.be.oneOf([200, 201]);
+  })
+});
+
+Cypress.Commands.add('registrarDatosIncompletosAPI', (codeResponse) => {
+  const body = {
+      lastName: "miranda",
+      password: "Vitalia1234",
+      userName: "vitaliamiranda"
+  };
+
+  return cy.request({
+    method: 'POST',
+    url: 'https://app.bookdbqa.online/api/user/',
+    failOnStatusCode: false, 
+    body: body
+  }).then((response) => {
+    expect(response.status).to.eq(codeResponse);
+  })
+});
