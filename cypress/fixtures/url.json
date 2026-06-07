@@ -1,5 +1,6 @@
 {
   "login": "https://app.bookdbqa.online/login",
   "home": "https://app.bookdbqa.online",
-  "wishlist": "https://app.bookdbqa.online/wishlist"
+  "wishlist": "https://app.bookdbqa.online/wishlist",
+  "register": "https://app.bookdbqa.online/register"
 }

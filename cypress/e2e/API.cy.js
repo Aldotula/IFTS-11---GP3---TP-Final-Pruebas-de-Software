@@ -39,4 +39,12 @@ describe('Casos de prueba de APIs', () => {
     })
     
 
+     it('API: Registro de usuario exitoso | Vitalia Miranda', () => {
+        cy.registerUserAPI(200)
+    })
+
+    it('intentar registrar datos incompletos | Vitalia Miranda', () => {
+        cy.registrarDatosIncompletosAPI(400)
+    })
+
 })
