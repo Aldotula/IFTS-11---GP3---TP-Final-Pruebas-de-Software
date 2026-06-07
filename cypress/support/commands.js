@@ -109,16 +109,23 @@ Cypress.Commands.add('filterByCategory', (categoryName) => {
     .click();
 });
 
-Cypress.Commands.add('loginAPI', (username, password) => {
+Cypress.Commands.add('loginAPI', (username, password, codeResponse = 200) => {
   return cy.request({
     method: 'POST',
     url: 'https://app.bookdbqa.online/api/Login',
+    failOnStatusCode: false,
     body: {
       userName: username,
       password: password
     }
   }).then((response) => {
-    return response.body.token;
+    expect(response.status).to.eq(codeResponse);
+
+    if (response.status === 200 && response.body) {
+      return response.body.token;
+    }
+
+    return null;
   });
 });
 
@@ -135,53 +142,3 @@ Cypress.Commands.add('ensureWishlistHasItem', (userId, username, password) => {
   });
 });
 
-Cypress.Commands.add('loginAPI', (username, password, codeResponse) => {
-  return cy.request({
-    method: 'POST',
-    url: 'https://app.bookdbqa.online/api/Login',
-    failOnStatusCode: false,
-    body: {
-      userName: username,
-      password: password
-    }
-  }).then((response) => {
-    expect(response.status).to.eq(codeResponse);
-  });
-});
-
-Cypress.Commands.add('registerUserAPI', (codeResponse) => {
-  const body = {
-      confirmPassword: "Vitalia1234",
-      firstName: "vitalia",
-      gender: "Female",
-      lastName: "miranda",
-      password: "Vitalia1234",
-      userName: "vitaliamiranda"
-  };
-
-  return cy.request({
-    method: 'POST',
-    url: 'https://app.bookdbqa.online/api/user/',
-    failOnStatusCode: false, 
-    body: body
-  }).then((response) => {
-    expect(response.status).to.be.oneOf([200, 201]);
-  })
-});
-
-Cypress.Commands.add('registrarDatosIncompletosAPI', (codeResponse) => {
-  const body = {
-      lastName: "miranda",
-      password: "Vitalia1234",
-      userName: "vitaliamiranda"
-  };
-
-  return cy.request({
-    method: 'POST',
-    url: 'https://app.bookdbqa.online/api/user/',
-    failOnStatusCode: false, 
-    body: body
-  }).then((response) => {
-    expect(response.status).to.eq(codeResponse);
-  })
-});
