@@ -43,7 +43,7 @@ describe('Casos de prueba de APIs', () => {
         cy.registerUserAPI(200)
     })
 
-    it('intentar registrar datos incompletos | Vitalia Miranda', () => {
+    it('API: Intentar registrar datos incompletos | Vitalia Miranda', () => {
         cy.registrarDatosIncompletosAPI(400)
     })
 

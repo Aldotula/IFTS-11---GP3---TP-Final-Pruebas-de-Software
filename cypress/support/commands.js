@@ -142,3 +142,40 @@ Cypress.Commands.add('ensureWishlistHasItem', (userId, username, password) => {
   });
 });
 
+Cypress.Commands.add('registerUserAPI', (codeResponse) => {
+  const randomUser = `user${Date.now()}`;
+
+  return cy.request({
+    method: 'POST',
+    url: 'https://app.bookdbqa.online/api/User',
+    failOnStatusCode: false,
+    body: {
+      firstName: 'Test',
+      lastName: 'User',
+      userName: randomUser,
+      password: 'Test1234',
+      confirmPassword: 'Test1234',
+      gender: 'Male'
+    }
+  }).then((response) => {
+    expect(response.status).to.eq(codeResponse);
+  });
+});
+
+Cypress.Commands.add('registrarDatosIncompletosAPI', (codeResponse) => {
+  return cy.request({
+    method: 'POST',
+    url: 'https://app.bookdbqa.online/api/User',
+    failOnStatusCode: false,
+    body: {
+      firstName: '',
+      lastName: '',
+      userName: '',
+      password: '',
+      confirmPassword: '',
+      gender: ''
+    }
+  }).then((response) => {
+    expect(response.status).to.eq(codeResponse);
+  });
+});
