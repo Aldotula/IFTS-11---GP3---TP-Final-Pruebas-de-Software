@@ -1,6 +1,5 @@
 import user from '../fixtures/user.json';
 import url from '../fixtures/url.json';
-
 import pageHome from '../support/page_objects/pageHome';
 import componentNav from '../support/page_objects/componentNav';
 import pageWishlist from '../support/page_objects/pageWishlist';

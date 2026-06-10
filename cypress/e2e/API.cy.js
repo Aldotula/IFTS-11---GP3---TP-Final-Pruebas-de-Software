@@ -13,19 +13,19 @@ describe('Casos de prueba de APIs', () => {
         cy.postCheckOutAPI(user.userId, '', 401)
     })
 
-    it('API Obtener listado de categoria de libros | Rosa Sanchez', () => {
+    it('API | Obtener listado de categoria de libros | Rosa Sanchez', () => {
         cy.getCategoriesAPI(200)
     })
 
-    it('API Error al obtener listado de categorías utilizando método HTTP incorrecto | Rosa Sanchez', () => {
+    it('API | Error al obtener listado de categorías utilizando método HTTP incorrecto | Rosa Sanchez', () => {
         cy.postCategoriesAPI(405)
     })
 
-    it('API Obtener wishlist de un usuario válido | Aldo Tula', () => {
+    it('API | Obtener wishlist de un usuario válido | Aldo Tula', () => {
         cy.getWishlistAPI(user.userId, 200)
     })
 
-    it('Error al obtener wishlist de un usuario inexistente | Aldo Tula', () => {
+    it('API Error al obtener wishlist de un usuario inexistente | Aldo Tula', () => {
         cy.getWishlistAPI(99999, 200)
     })
     // Nota: La API devuelve 200 OK con lista vacía para usuarios inexistentes, en lugar de 404 Not Found.
@@ -43,7 +43,7 @@ describe('Casos de prueba de APIs', () => {
         cy.registerUserAPI(200)
     })
 
-    it('API: Intentar registrar datos incompletos | Vitalia Miranda', () => {
+    it('API | Intentar registrar datos incompletos | Vitalia Miranda', () => {
         cy.registrarDatosIncompletosAPI(400)
     })
 
