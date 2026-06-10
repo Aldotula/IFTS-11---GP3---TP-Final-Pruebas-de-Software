@@ -33,7 +33,7 @@ describe('Casos de prueba de FRONT', () => {
     pageOrders.openFirstOrder();
   });
 
-  it('Filtrar libros por categoria estan logueado | Rosa Sanchez', () => {
+  it('Filtrar libros por categoria estando logueado | Rosa Sanchez', () => {
     cy.login(user.username, user.password);
     cy.url().should('include', url.home);
     pageHome.isBookVisible();
@@ -61,7 +61,7 @@ describe('Casos de prueba de FRONT', () => {
     pageRegister.visitar();
   });
 
-  it('Front-end: Validar que el nombre de usuario no esté repetido | Vitalia Miranda', () => {
+  it('Validar que el nombre de usuario no esté repetido | Vitalia Miranda', () => {
     pageRegister.completarFormulario({
       confirmPassword: "Vitalia1234",
       firstName: "vitalia",
