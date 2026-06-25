@@ -40,6 +40,18 @@ describe('Casos de prueba de FRONT', () => {
     pageHome.isAnyBookVisible();
   });
 
+  it.only('Filtrar libros por categoria estando logueado | Correccion | Rosa Sanchez', () => {
+    cy.login(user.username, user.password);
+    cy.url().should('include', url.home);
+    cy.saveBooksList();
+    cy.filterByCategory('Romance');
+    cy.url().should('include', 'category=romance');
+    cy.verifyBooksListChanged();
+    cy.clearCategoryFilter();
+    cy.verifyBooksAfterFilterRemoved();
+  });
+
+
   it('Eliminar un libro de la wishlist estando logueado | Aldo Tula', () => {
     cy.login(user.username, user.password);
     cy.ensureWishlistHasItem(user.userId, user.username, user.password);

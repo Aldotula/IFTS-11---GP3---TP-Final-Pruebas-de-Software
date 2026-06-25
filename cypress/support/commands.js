@@ -11,6 +11,39 @@ Cypress.Commands.add('login', (name, password) => {
   cy.url().should('not.include', 'login');
 });
 
+Cypress.Commands.add('filterByCategory', (categoryName) => {
+  cy.contains(categoryName)
+    .should('be.visible')
+    .click();
+});
+
+Cypress.Commands.add('clearCategoryFilter', () => {
+  cy.contains('All Categories')
+    .should('be.visible')
+    .click();
+});
+
+Cypress.Commands.add('saveBooksList', () => {
+  cy.get('.book-card').then((books) => {
+    const listBefore = [...books].map(book => book.innerText.trim());
+    cy.wrap(listBefore).as('booksBefore');
+  });
+});
+
+Cypress.Commands.add('verifyBooksListChanged', () => {
+  cy.get('@booksBefore').then((beforeList) => {
+    cy.get('.book-card').then((booksAfter) => {
+      const afterList = [...booksAfter].map(book => book.innerText.trim());
+      expect(afterList).to.not.deep.equal(beforeList);
+    });
+  });
+});
+
+Cypress.Commands.add('verifyBooksAfterFilterRemoved', () => {
+  cy.get('.book-card')
+    .should('have.length.greaterThan', 0);
+});
+
 Cypress.Commands.add('deleteCartAPI', (userId) => {
   return cy.request({
     method: 'DELETE',
@@ -25,7 +58,6 @@ Cypress.Commands.add('deleteCartAPI', (userId) => {
 });
 
 Cypress.Commands.add('postCheckOutAPI', (userId, token, codeResponse) => {
-
   const orderData = {
     orderDetails: [
       {
@@ -58,23 +90,15 @@ Cypress.Commands.add('postCheckOutAPI', (userId, token, codeResponse) => {
   });
 });
 
-Cypress.Commands.add('getCategoriesAPI', (codeResponse) => {
-  return cy.request({
+Cypress.Commands.add('categoriesAPI', (expectedStatus) => {
+  cy.request({
     method: 'GET',
-    url: 'https://app.bookdbqa.online/api/Book/GetCategoriesList',
-    failOnStatusCode: false
+    url: 'https://app.bookdbqa.online/api/Book/GetCategoriesList'
   }).then((response) => {
-    expect(response.status).to.eq(codeResponse);
-  });
-});
+    expect(response.status).to.eq(expectedStatus);
 
-Cypress.Commands.add('postCategoriesAPI', (codeResponse) => {
-  return cy.request({
-    method: 'POST',
-    url: 'https://app.bookdbqa.online/api/Book/GetCategoriesList',
-    failOnStatusCode: false
-  }).then((response) => {
-    expect(response.status).to.eq(codeResponse);
+    const categories = response.body.map(cat => cat.categoryName);
+    expect(categories).to.include('Romance');
   });
 });
 
@@ -99,16 +123,6 @@ Cypress.Commands.add('toggleWishlistAPI', (userId, bookId, token) => {
   });
 });
 
-Cypress.Commands.add('goToWishlist', () => {
-  cy.visit(url.wishlist);
-});
-
-Cypress.Commands.add('filterByCategory', (categoryName) => {
-  cy.contains(categoryName)
-    .should('be.visible')
-    .click();
-});
-
 Cypress.Commands.add('loginAPI', (username, password, codeResponse = 200) => {
   return cy.request({
     method: 'POST',
@@ -126,19 +140,6 @@ Cypress.Commands.add('loginAPI', (username, password, codeResponse = 200) => {
     }
 
     return null;
-  });
-});
-
-Cypress.Commands.add('ensureWishlistHasItem', (userId, username, password) => {
-  cy.loginAPI(username, password).then((token) => {
-    cy.request({
-      method: 'GET',
-      url: `https://app.bookdbqa.online/api/Wishlist/${userId}`
-    }).then((response) => {
-      if (response.body.length === 0) {
-        cy.toggleWishlistAPI(userId, 2, token);
-      }
-    });
   });
 });
 
